@@ -4,3 +4,4 @@
 
 vim.g.ai_cmp = false
 vim.opt.relativenumber = true
+-- vim.g.autoformat = false
