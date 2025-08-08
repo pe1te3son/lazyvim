@@ -9,12 +9,32 @@ vim.keymap.del("n", "<leader><tab>d")
 vim.keymap.del("n", "<leader><tab>[")
 vim.keymap.del("n", "<leader><tab>]")
 vim.keymap.del({ "n" }, "<leader><tab>l")
-vim.keymap.del({ "n" }, "<leader>sw")
+vim.keymap.del({ "n", "v" }, "<leader>sw")
 vim.keymap.del({ "n" }, "<leader>e")
+vim.keymap.del({ "n" }, "<leader>sg")
+vim.keymap.del({ "n", "v" }, "<leader>sr") -- search and replace grup far plugin
 
 vim.keymap.set("n", "<leader>am", ":CopilotChatModels<cr>", {
   desc = "Select Copilot Model",
 })
+
+vim.keymap.set({ "n", "v" }, "<leader>sx", function()
+  local grug = require("grug-far")
+  local ext = vim.bo.buftype == "" and vim.fn.expand("%:e")
+  grug.open({
+    transient = true,
+    prefills = {
+      filesFilter = ext and ext ~= "" and "*." .. ext or nil,
+    },
+  })
+end, {
+  desc = "Search and replace (Grup Far)",
+})
+
+vim.keymap.set({ "v" }, "<leader>sr", [[hy:%s/<C-r><C-w>//gc<left><left><left>]], {
+  desc = "Cmd: Search and replace (current file)",
+})
+-- todo:
 
 vim.keymap.set("n", "<C-n>", function(ctx)
   require("trouble").next({ skip_groups = true, jump = true }, ctx)
