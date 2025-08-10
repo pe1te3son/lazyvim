@@ -28,13 +28,12 @@ vim.keymap.set({ "n", "v" }, "<leader>sx", function()
     },
   })
 end, {
-  desc = "Search and replace (Grup Far)",
+  desc = "Search and replace (Grug Far)",
 })
 
 vim.keymap.set({ "v" }, "<leader>sr", [[hy:%s/<C-r><C-w>//gc<left><left><left>]], {
   desc = "Cmd: Search and replace (current file)",
 })
--- todo:
 
 vim.keymap.set("n", "<C-n>", function(ctx)
   require("trouble").next({ skip_groups = true, jump = true }, ctx)
@@ -43,6 +42,55 @@ vim.keymap.set("n", "<C-p>", function(ctx)
   require("trouble").prev({ skip_groups = true, jump = true }, ctx)
 end, { noremap = true })
 
+local hop = require("hop")
+local directions = require("hop.hint").HintDirection
+vim.keymap.set("", "<leader>h", function()
+  hop.hint_char1({
+    direction = directions.AFTER_CURSOR,
+    current_line_only = false,
+    case_insensitive = true,
+  })
+end, { remap = true })
+vim.keymap.set("", "<leader>t", function()
+  hop.hint_char1({
+    direction = directions.BEFORE_CURSOR,
+    current_line_only = false,
+    case_insensitive = true,
+  })
+end, { remap = true })
+
+vim.keymap.set("n", "<leader>T", function()
+  hop.hint_char1({
+    direction = directions.BEFORE_CURSOR,
+    current_line_only = false,
+    case_insensitive = true,
+    multi_windows = true,
+  })
+end, { remap = true })
+
+vim.keymap.set("n", "<leader>H", function()
+  hop.hint_char1({
+    direction = directions.AFTER_CURSOR,
+    current_line_only = false,
+    case_insensitive = true,
+    multi_windows = true,
+  })
+end, { remap = true })
+--
+-- -- fugitive keymaps
+-- vim.keymap.set("n", "<leader>gii", function()
+--   vim.cmd("vertical rightbelow Git")
+-- end)
+-- vim.keymap.set("n", "<leader>gid", vim.cmd.Gdiff)
+--
+-- vim.keymap.set("n", "<leader>gia", function()
+--   vim.cmd("diffput")
+-- end)
+--
+-- -- vim.keymap.set("n", "<leader>gib", function()
+-- --   vim.cmd("Git blame")
+-- -- end)
+--
 -- spacemacs like buffer management
 vim.keymap.set("n", "<leader>bd", "<Cmd>:bd<CR>", {
   desc = "Delete current buffer",

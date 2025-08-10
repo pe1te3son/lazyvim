@@ -5,6 +5,17 @@ return {
     "folke/snacks.nvim",
     opts = {
       explorer = { enabled = false },
+      picker = {
+        win = {
+          input = {
+            keys = {
+              ["<c-x>"] = { "bufdelete", mode = { "n", "i" } },
+              ["d"] = { "bufdelete", mode = { "n"} },
+            },
+          },
+          list = { keys = { ["dd"] = "bufdelete" } },
+        },
+      }
     },
     keys = {
       { "<leader>,", function() Snacks.picker.buffers() end, desc = "Buffers" },
