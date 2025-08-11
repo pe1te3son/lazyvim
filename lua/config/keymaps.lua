@@ -14,10 +14,6 @@ vim.keymap.del({ "n" }, "<leader>e")
 vim.keymap.del({ "n" }, "<leader>sg")
 vim.keymap.del({ "n", "v" }, "<leader>sr") -- search and replace grup far plugin
 
-vim.keymap.set("n", "<leader>am", ":CopilotChatModels<cr>", {
-  desc = "Select Copilot Model",
-})
-
 vim.keymap.set({ "n", "v" }, "<leader>sx", function()
   local grug = require("grug-far")
   local ext = vim.bo.buftype == "" and vim.fn.expand("%:e")
@@ -50,33 +46,32 @@ vim.keymap.set("", "<leader>h", function()
     current_line_only = false,
     case_insensitive = true,
   })
-end, { remap = true })
+end, { desc = "Hop After Cursor", remap = true })
 vim.keymap.set("", "<leader>t", function()
   hop.hint_char1({
     direction = directions.BEFORE_CURSOR,
     current_line_only = false,
     case_insensitive = true,
   })
-end, { remap = true })
+end, { desc = "Hop Before Cursor", remap = true })
 
-vim.keymap.set("n", "<leader>T", function()
-  hop.hint_char1({
-    direction = directions.BEFORE_CURSOR,
-    current_line_only = false,
-    case_insensitive = true,
-    multi_windows = true,
-  })
-end, { remap = true })
+-- Copilot
+vim.keymap.set("n", "<leader>am", ":CopilotChatModels<cr>", {
+  desc = "Select Copilot Model",
+})
 
-vim.keymap.set("n", "<leader>H", function()
-  hop.hint_char1({
-    direction = directions.AFTER_CURSOR,
-    current_line_only = false,
-    case_insensitive = true,
-    multi_windows = true,
-  })
-end, { remap = true })
---
+vim.keymap.set("i", "<C-u>", function()
+  require("copilot.suggestion").accept_word()
+end, { remap = false, desc = "Accept Copilot suggestion (Word)" })
+
+vim.keymap.set("i", "<C-l>", function()
+  require("copilot.suggestion").next()
+end, { remap = false, desc = "Next Copilot suggestion" })
+
+vim.keymap.set("i", "<C-L>", function()
+  require("copilot.suggestion").prev()
+end, { remap = false, desc = "Prev Copilot suggestion" })
+
 -- -- fugitive keymaps
 -- vim.keymap.set("n", "<leader>gii", function()
 --   vim.cmd("vertical rightbelow Git")
