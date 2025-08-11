@@ -23,3 +23,10 @@ vim.api.nvim_create_autocmd({ "BufEnter" }, {
     end)
   end,
 })
+
+-- Clear yanky history on exit
+vim.api.nvim_create_autocmd("VimLeavePre", {
+  callback = function()
+    require("yanky.history").clear()
+  end,
+})
