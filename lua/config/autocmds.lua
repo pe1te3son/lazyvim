@@ -12,3 +12,14 @@ vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "CursorHoldI", "FocusGai
   command = "if mode() != 'c' | checktime | endif",
   pattern = { "*" },
 })
+
+-- vim.api.nvim_create_autocmd({ "FileType", "BufEnter", "BufWinEnter", "BufRead" }, {
+vim.api.nvim_create_autocmd({ "BufEnter" }, {
+  pattern = "copilot-chat",
+  callback = function()
+    vim.schedule(function()
+      vim.bo.modifiable = true
+      vim.bo.readonly = false
+    end)
+  end,
+})
