@@ -27,9 +27,16 @@ end, {
   desc = "Search and replace (Grug Far)",
 })
 
-vim.keymap.set({ "v" }, "<leader>sr", [[hy:%s/<C-r><C-w>//gc<left><left><left>]], {
-  desc = "Cmd: Search and replace (current file)",
-})
+-- vim.keymap.set({ "v" }, "<leader>sr", [[hy:%s/<C-r><C-w>//gc<left><left><left>]], {
+--   desc = "Cmd: Search and replace (current file)",
+-- })
+
+vim.keymap.set(
+  { "v" },
+  "<leader>sr",
+  [["hy<Esc>:%s/<C-r>=escape(@h, '/\')<CR>//gc<left><left><left>]],
+  { desc = "Search and replace selection (Current File)" }
+)
 
 vim.keymap.set("n", "<C-n>", function(ctx)
   require("trouble").next({ skip_groups = true, jump = true }, ctx)
