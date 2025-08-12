@@ -30,3 +30,26 @@ vim.api.nvim_create_autocmd("VimLeavePre", {
     require("yanky.history").clear()
   end,
 })
+
+-- Auto-save using timer (doesn't affect updatetime)
+local autosave_timer = vim.loop.new_timer()
+local function autosave_buffers()
+  for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    if
+      vim.api.nvim_buf_is_loaded(buf)
+      and vim.api.nvim_get_option_value("modified", { buf = buf })
+      and vim.api.nvim_buf_get_name(buf) ~= ""
+      and not vim.api.nvim_get_option_value("readonly", { buf = buf })
+      and vim.api.nvim_get_option_value("buftype", { buf = buf }) == ""
+    then
+      vim.api.nvim_buf_call(buf, function()
+        vim.cmd("silent! write")
+      end)
+      local filepath = vim.fn.fnamemodify(vim.api.nvim_buf_get_name(buf), ":.")
+      vim.notify(string.format("Saved: %s", filepath), vim.log.levels.INFO, { title = "Auto-save" })
+    end
+  end
+end
+
+-- Start timer that repeats every 60 seconds
+autosave_timer:start(60000, 60000, vim.schedule_wrap(autosave_buffers))
