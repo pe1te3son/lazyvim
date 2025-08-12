@@ -94,9 +94,6 @@ end, { remap = false, desc = "Prev Copilot suggestion" })
 -- -- end)
 --
 -- spacemacs like buffer management
-vim.keymap.set("n", "<leader>bd", "<Cmd>:bd<CR>", {
-  desc = "Delete current buffer",
-})
 local function find_last_buffer_listed()
   local all_buffers = vim.api.nvim_list_bufs()
   local current_buffer = vim.api.nvim_get_current_buf()
@@ -133,25 +130,27 @@ local function switch_to_last_buffer()
   end
 end
 
--- local function delete_buffer_by_id(buffer_id)
---   vim.api.nvim_command("bdelete " .. buffer_id)
--- end
---
--- local function is_modified(bufnr)
---   return vim.api.nvim_get_option_value("modified", { buf = bufnr })
--- end
+local function delete_buffer_by_id(buffer_id)
+  vim.api.nvim_command("bdelete " .. buffer_id)
+end
 
--- vim.keymap.set("n", "<leader>bd", function()
---   local current_buffer = vim.api.nvim_get_current_buf()
---
---   if is_modified(current_buffer) then
---     print("Buffer has unsaved changes.")
---     return
---   end
---
---   switch_to_last_buffer()
---   delete_buffer_by_id(current_buffer)
--- end)
+local function is_modified(bufnr)
+  return vim.api.nvim_get_option_value("modified", { buf = bufnr })
+end
+
+vim.keymap.set("n", "<leader>bd", function()
+  local current_buffer = vim.api.nvim_get_current_buf()
+
+  if is_modified(current_buffer) then
+    print("Buffer has unsaved changes.")
+    return
+  end
+
+  switch_to_last_buffer()
+  delete_buffer_by_id(current_buffer)
+end, {
+  desc = "Delete current buffer and switch to last",
+})
 
 vim.keymap.set("n", "<leader><Tab>", function()
   switch_to_last_buffer()
