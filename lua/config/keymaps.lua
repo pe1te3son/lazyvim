@@ -13,6 +13,15 @@ vim.keymap.del({ "n", "v" }, "<leader>sw")
 vim.keymap.del({ "n" }, "<leader>e")
 vim.keymap.del({ "n" }, "<leader>sg")
 vim.keymap.del({ "n", "v" }, "<leader>sr") -- search and replace grup far plugin
+vim.keymap.del({ "n" }, "<leader><space>")
+
+vim.keymap.set({ "n" }, "<leader><space>", function()
+  require("fzf-lua").keymaps()
+end, { desc = "FzfLua keymaps" })
+
+vim.keymap.set({ "n" }, "<leader>fk", function()
+  require("fzf-lua").builtin()
+end, { desc = "FzfLua All" })
 
 vim.keymap.set({ "n", "v" }, "<leader>sx", function()
   local grug = require("grug-far")
@@ -26,7 +35,6 @@ vim.keymap.set({ "n", "v" }, "<leader>sx", function()
 end, {
   desc = "Search and replace (Grug Far)",
 })
-
 -- vim.keymap.set({ "v" }, "<leader>sr", [[hy:%s/<C-r><C-w>//gc<left><left><left>]], {
 --   desc = "Cmd: Search and replace (current file)",
 -- })
