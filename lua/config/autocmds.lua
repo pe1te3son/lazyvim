@@ -43,21 +43,28 @@ vim.api.nvim_create_autocmd("VimLeavePre", {
 
 -- Auto-save using timer (doesn't affect updatetime)
 local autosave_timer = vim.loop.new_timer()
+local vim_has_focus = true
+
 local function autosave_buffers()
+  local current_buf = vim.api.nvim_get_current_buf()
+
   for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+    local should_save_current = not vim_has_focus -- Save current buffer if vim is unfocused
+
     if
       vim.api.nvim_buf_is_loaded(buf)
       and vim.api.nvim_get_option_value("modified", { buf = buf })
       and vim.api.nvim_buf_get_name(buf) ~= ""
       and not vim.api.nvim_get_option_value("readonly", { buf = buf })
       and vim.api.nvim_get_option_value("buftype", { buf = buf }) == ""
+      and (buf ~= current_buf or should_save_current)
     then
       -- Skip if any window displaying this buffer is in insert mode
       local skip_buffer = false
       for _, win in ipairs(vim.api.nvim_list_wins()) do
         if vim.api.nvim_win_get_buf(win) == buf then
           local mode = vim.api.nvim_get_mode().mode
-          if mode:match("^i") then
+          if mode:match("^i") and vim_has_focus then -- Only skip insert mode when focused
             skip_buffer = true
             break
           end
@@ -75,5 +82,19 @@ local function autosave_buffers()
   end
 end
 
--- Start timer that repeats every 60 seconds
-autosave_timer:start(60000, 60000, vim.schedule_wrap(autosave_buffers))
+vim.api.nvim_create_autocmd("FocusGained", {
+  callback = function()
+    vim_has_focus = true
+  end,
+})
+
+vim.api.nvim_create_autocmd("FocusLost", {
+  callback = function()
+    vim_has_focus = false
+  end,
+})
+
+local autosave_seconds = 60
+if autosave_timer ~= nil then
+  autosave_timer:start(autosave_seconds * 1000, autosave_seconds * 1000, vim.schedule_wrap(autosave_buffers))
+end
