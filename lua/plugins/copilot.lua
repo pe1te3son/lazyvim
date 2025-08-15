@@ -1,27 +1,41 @@
 return {
+  -- {
+  --   "zbirenbaum/copilot.lua",
+  --   cmd = "Copilot",
+  --   event = "InsertEnter",
+  --   opts = {
+  --     suggestion = { enabled = false },
+  --     panel = { enabled = false },
+  --     filetypes = {
+  --       markdown = true,
+  --       help = true,
+  --     },
+  --   },
+  -- },
   {
-    "saghen/blink.cmp",
-    optional = true,
-    dependencies = { "fang2hou/blink-copilot" },
+    "NickvanDyke/opencode.nvim",
+    dependencies = { "folke/snacks.nvim" },
+    ---@type opencode.Config
     opts = {
-      sources = {
-        default = { "copilot" },
-        providers = {
-          copilot = {
-            name = "copilot",
-            module = "blink-copilot",
-            score_offset = 0,
-            async = true,
-          },
-        },
-      },
+      -- Your configuration, if any
+    },
+    -- stylua: ignore
+    keys = {
+      -- { '<leader>at', function() require('opencode').toggle() end, desc = 'Toggle embedded opencode', },
+      { '<leader>ad', function() require('opencode').ask() end, desc = 'Ask opencode', mode = 'n', },
+      { '<leader>ad', function() require('opencode').ask('@selection: ') end, desc = 'Ask opencode about selection', mode = 'v', },
+      { '<leader>as', function() require('opencode').select_prompt() end, desc = 'Select prompt', mode = { 'n', 'v', }, },
+      -- { '<leader>on', function() require('opencode').command('session_new') end, desc = 'New session', },
+      -- { '<leader>oy', function() require('opencode').command('messages_copy') end, desc = 'Copy last message', },
+      -- { '<S-C-u>',    function() require('opencode').command('messages_half_page_up') end, desc = 'Scroll messages up', },
+      -- { '<S-C-d>',    function() require('opencode').command('messages_half_page_down') end, desc = 'Scroll messages down', },
     },
   },
   {
     "CopilotC-Nvim/CopilotChat.nvim",
     dependencies = {
       { "nvim-lua/plenary.nvim", branch = "master" },
-      { "github/copilot.vim" }, -- or zbirenbaum/copilot.lua
+      { "zbirenbaum/copilot.lua" },
     },
     build = "make tiktoken",
     opts = function()

@@ -90,11 +90,11 @@ vim.keymap.set("i", "<C-L>", function()
   require("copilot.suggestion").prev()
 end, { remap = false, desc = "Prev Copilot suggestion" })
 
--- -- fugitive keymaps
+-- fugitive keymaps
 -- vim.keymap.set("n", "<leader>gii", function()
 --   vim.cmd("vertical rightbelow Git")
 -- end)
--- vim.keymap.set("n", "<leader>gid", vim.cmd.Gdiff)
+vim.keymap.set("n", "<leader>gid", vim.cmd.Gdiff, { desc = "Git Diff" })
 --
 -- vim.keymap.set("n", "<leader>gia", function()
 --   vim.cmd("diffput")
