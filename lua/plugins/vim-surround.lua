@@ -1,6 +1,6 @@
 return {
   "tpope/vim-surround",
-  -- event = "VeryLazy",
+  event = "VeryLazy",
   keys = {
     { "cs", "<Plug>VSurround", mode = { "n" }, desc = "Change Surrounding" },
     { "ds", "<Plug>Dsurround", mode = { "n" }, desc = "Delete Surrounding" },
