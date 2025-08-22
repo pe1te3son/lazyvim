@@ -2,9 +2,14 @@
 
 return {
   {
+    "karb94/neoscroll.nvim",
+    opts = {},
+  },
+  {
     "folke/snacks.nvim",
     opts = {
       explorer = { enabled = false },
+      scroll = { enabled = false },
       picker = {
         win = {
           input = {
