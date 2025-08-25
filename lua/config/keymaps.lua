@@ -101,7 +101,22 @@ end, { remap = false, desc = "Prev Copilot suggestion" })
 -- vim.keymap.set("n", "<leader>gii", function()
 --   vim.cmd("vertical rightbelow Git")
 -- end)
-vim.keymap.set("n", "<leader>gid", vim.cmd.Gdiff, { desc = "Git Diff" })
+vim.keymap.set("n", "<leader>gid", function()
+  vim.cmd("normal! m'") -- Set a mark at current position
+  vim.cmd.Gdiff()
+  -- Set up an autocmd to return to mark when diff is closed
+  vim.api.nvim_create_autocmd("BufWinLeave", {
+    pattern = "*",
+    once = true,
+    callback = function()
+      vim.schedule(function()
+        if vim.fn.mode() == "n" then
+          vim.cmd("normal! `'")
+        end
+      end)
+    end,
+  })
+end, { desc = "Git Diff" })
 --
 -- vim.keymap.set("n", "<leader>gia", function()
 --   vim.cmd("diffput")
