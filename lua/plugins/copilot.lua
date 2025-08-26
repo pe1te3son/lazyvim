@@ -1,17 +1,47 @@
 return {
-  -- {
-  --   "zbirenbaum/copilot.lua",
-  --   cmd = "Copilot",
-  --   event = "InsertEnter",
-  --   opts = {
-  --     suggestion = { enabled = false },
-  --     panel = { enabled = false },
-  --     filetypes = {
-  --       markdown = true,
-  --       help = true,
-  --     },
-  --   },
-  -- },
+  {
+    "Exafunction/codeium.nvim",
+    cmd = "Codeium",
+    event = "InsertEnter",
+    build = ":Codeium Auth",
+    opts = {
+      workspace_root = {
+        use_lsp = false,
+      },
+      enable_chat = false,
+      enable_cmp_source = vim.g.ai_cmp,
+      filetypes = {
+        copilot = false,
+        markdown = false,
+        AvanteInput = false,
+      },
+      default_filetype_enabled = false,
+      virtual_text = {
+        enabled = not vim.g.ai_cmp,
+        key_bindings = {
+          accept = "<Tab>",
+          accept_word = "<C-j>",
+          next = "<M-]>",
+          prev = "<M-[>",
+        },
+      },
+    },
+  },
+  {
+
+    "zbirenbaum/copilot.lua",
+    -- enabled = false,
+    cmd = "Copilot",
+    event = "InsertEnter",
+    opts = {
+      suggestion = { enabled = false },
+      panel = { enabled = false },
+      filetypes = {
+        markdown = true,
+        help = true,
+      },
+    },
+  },
   {
     "NickvanDyke/opencode.nvim",
     dependencies = { "folke/snacks.nvim" },
@@ -31,85 +61,85 @@ return {
       -- { '<S-C-d>',    function() require('opencode').command('messages_half_page_down') end, desc = 'Scroll messages down', },
     },
   },
-  {
-    "CopilotC-Nvim/CopilotChat.nvim",
-    dependencies = {
-      { "nvim-lua/plenary.nvim", branch = "master" },
-      { "zbirenbaum/copilot.lua" },
-    },
-    build = "make tiktoken",
-    opts = function()
-      local user = vim.env.USER or "User"
-      user = user:sub(1, 1):upper() .. user:sub(2)
-      return {
-        auto_insert_mode = false,
-        question_header = "  " .. user .. " ",
-        answer_header = "  Copilot ",
-        model = "claude-sonnet-4",
-
-        window = {
-          layout = "float", -- 'vertical', 'horizontal', 'float', 'replace'
-          width = 0.8,
-          height = 0.8,
-        },
-      }
-    end,
-    keys = {
-      { "<c-s>", "<CR>", ft = "copilot-chat", desc = "Submit Prompt", remap = true },
-      { "<leader>a", "", desc = "+ai", mode = { "n", "v" } },
-      {
-        "<leader>aa",
-        function()
-          return require("CopilotChat").toggle()
-        end,
-        desc = "Toggle (CopilotChat)",
-        mode = { "n", "v" },
-      },
-      {
-        "<leader>aq",
-        function()
-          return require("CopilotChat").reset()
-        end,
-        desc = "Clear (CopilotChat)",
-        mode = { "n", "v" },
-      },
-      {
-        "<leader>ap",
-        function()
-          vim.ui.input({
-            prompt = "Quick Chat: ",
-          }, function(input)
-            if input ~= "" then
-              require("CopilotChat").ask(input, { selection = require("CopilotChat.select").buffer })
-            end
-          end)
-        end,
-        desc = "Quick Chat (CopilotChat)",
-        mode = { "n" },
-      },
-
-      {
-        "<leader>ap",
-        function()
-          vim.ui.input({
-            prompt = "Quick Chat: ",
-          }, function(input)
-            if input ~= "" then
-              require("CopilotChat").ask(input, { selection = require("CopilotChat.select").visual })
-            end
-          end)
-        end,
-        desc = "Quick Chat (CopilotChat)",
-        mode = { "v" },
-      },
-      {
-        "<leader>ax",
-        function()
-          require("CopilotChat").select_prompt()
-        end,
-        desc = "Prompt Actions (CopilotChat)",
-        mode = { "n", "v" },
-      },
-    },
-  },
+  -- {
+  --   "CopilotC-Nvim/CopilotChat.nvim",
+  --   dependencies = {
+  --     { "nvim-lua/plenary.nvim", branch = "master" },
+  --     { "zbirenbaum/copilot.lua" },
+  --   },
+  --   build = "make tiktoken",
+  --   opts = function()
+  --     local user = vim.env.USER or "User"
+  --     user = user:sub(1, 1):upper() .. user:sub(2)
+  --     return {
+  --       auto_insert_mode = false,
+  --       question_header = "  " .. user .. " ",
+  --       answer_header = "  Copilot ",
+  --       model = "claude-sonnet-4",
+  --
+  --       window = {
+  --         layout = "float", -- 'vertical', 'horizontal', 'float', 'replace'
+  --         width = 0.8,
+  --         height = 0.8,
+  --       },
+  --     }
+  --   end,
+  --   keys = {
+  --     { "<c-s>", "<CR>", ft = "copilot-chat", desc = "Submit Prompt", remap = true },
+  --     { "<leader>a", "", desc = "+ai", mode = { "n", "v" } },
+  --     {
+  --       "<leader>aa",
+  --       function()
+  --         return require("CopilotChat").toggle()
+  --       end,
+  --       desc = "Toggle (CopilotChat)",
+  --       mode = { "n", "v" },
+  --     },
+  --     {
+  --       "<leader>aq",
+  --       function()
+  --         return require("CopilotChat").reset()
+  --       end,
+  --       desc = "Clear (CopilotChat)",
+  --       mode = { "n", "v" },
+  --     },
+  --     {
+  --       "<leader>ap",
+  --       function()
+  --         vim.ui.input({
+  --           prompt = "Quick Chat: ",
+  --         }, function(input)
+  --           if input ~= "" then
+  --             require("CopilotChat").ask(input, { selection = require("CopilotChat.select").buffer })
+  --           end
+  --         end)
+  --       end,
+  --       desc = "Quick Chat (CopilotChat)",
+  --       mode = { "n" },
+  --     },
+  --
+  --     {
+  --       "<leader>ap",
+  --       function()
+  --         vim.ui.input({
+  --           prompt = "Quick Chat: ",
+  --         }, function(input)
+  --           if input ~= "" then
+  --             require("CopilotChat").ask(input, { selection = require("CopilotChat.select").visual })
+  --           end
+  --         end)
+  --       end,
+  --       desc = "Quick Chat (CopilotChat)",
+  --       mode = { "v" },
+  --     },
+  --     {
+  --       "<leader>ax",
+  --       function()
+  --         require("CopilotChat").select_prompt()
+  --       end,
+  --       desc = "Prompt Actions (CopilotChat)",
+  --       mode = { "n", "v" },
+  --     },
+  --   },
+  -- },
 }
