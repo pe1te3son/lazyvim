@@ -31,6 +31,16 @@ return {
       web_search_engine = {
         provider = "brave",
         proxy = nil,
+      windows = {
+        ---@type "right" | "left" | "top" | "bottom"
+        position = "right", -- the position of the sidebar
+        wrap = true, -- similar to vim.o.wrap
+        width = 40, -- default % based on available width (you can adjust this value)
+        sidebar_header = {
+          enabled = true, -- true, false to enable/disable the header
+          align = "center", -- left, center, right for title
+          rounded = true,
+        },
       },
     },
     dependencies = {
