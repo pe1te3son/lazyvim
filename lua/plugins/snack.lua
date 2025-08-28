@@ -11,6 +11,7 @@ return {
       explorer = { enabled = false },
       scroll = { enabled = false },
       picker = {
+        ui_select = true,
         win = {
           input = {
             keys = {

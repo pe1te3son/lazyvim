@@ -1,15 +1,28 @@
 return {
   {
     "yetone/avante.nvim",
+    enabled = false,
     -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
     -- ⚠️ must add this setting! ! !
-    build = vim.fn.has("win32") ~= 0 and "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
-      or "make",
+    -- build = vim.fn.has("win32") ~= 0 and "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
+    --   or "make",
+    build = "make",
     event = "VeryLazy",
     version = false, -- Never set this value to "*"! Never!
     ---@module 'avante'
     ---@type avante.Config
     opts = {
+      system_prompt = function()
+        local hub = require("mcphub").get_hub_instance()
+        return hub and hub:get_active_servers_prompt() or ""
+      end,
+      -- Using function prevents requiring mcphub before it's loaded
+      custom_tools = function()
+        return {
+          require("mcphub.extensions.avante").mcp_tool(),
+        }
+      end,
+      auto_suggestions_provider = nil,
       -- add any opts here
       -- this file can contain specific instructions for your project
       instructions_file = "avante.md",
@@ -29,8 +42,9 @@ return {
         provider_opts = {},
       },
       web_search_engine = {
-        provider = "brave",
-        proxy = nil,
+        provider = "tavily", -- tavily, serpapi, google, kagi, brave, or searxng
+        proxy = nil, -- proxy support, e.g., http://127.0.0.1:7890
+      },
       windows = {
         ---@type "right" | "left" | "top" | "bottom"
         position = "right", -- the position of the sidebar

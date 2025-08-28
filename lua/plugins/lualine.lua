@@ -1,3 +1,19 @@
+local current_git_dir = ""
+local function get_git_folder()
+  if current_git_dir ~= "" then
+    return current_git_dir
+  end
+
+  local dir = vim.fn.system("basename $(git rev-parse --show-toplevel)"):sub(1, -2)
+
+  -- not in git repo
+  if dir:sub(1, 5) == "fatal" then
+    return current_git_dir
+  end
+  current_git_dir = " " .. dir
+  return current_git_dir
+end
+
 return {
   {
     "nvim-lualine/lualine.nvim",
@@ -31,10 +47,54 @@ return {
                 hint = icons.diagnostics.Hint,
               },
             },
+            {
+              get_git_folder,
+              color = { fg = "#9ece6a" },
+            },
             { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
             { LazyVim.lualine.pretty_path({ modified_sign = " + " }) },
           },
           lualine_x = {
+            {
+              function()
+                -- Check if MCPHub is loaded
+                if not vim.g.loaded_mcphub then
+                  return "󰐻 -"
+                end
+
+                local count = vim.g.mcphub_servers_count or 0
+                local status = vim.g.mcphub_status or "stopped"
+                local executing = vim.g.mcphub_executing
+
+                -- Show "-" when stopped
+                if status == "stopped" then
+                  return "󰐻 -"
+                end
+
+                -- Show spinner when executing, starting, or restarting
+                if executing or status == "starting" or status == "restarting" then
+                  local frames = { "⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏" }
+                  local frame = math.floor(vim.loop.now() / 100) % #frames + 1
+                  return "󰐻 " .. frames[frame]
+                end
+
+                return "󰐻 " .. count
+              end,
+              color = function()
+                if not vim.g.loaded_mcphub then
+                  return { fg = "#6c7086" } -- Gray for not loaded
+                end
+
+                local status = vim.g.mcphub_status or "stopped"
+                if status == "ready" or status == "restarted" then
+                  return { fg = "#50fa7b" } -- Green for connected
+                elseif status == "starting" or status == "restarting" then
+                  return { fg = "#ffb86c" } -- Orange for connecting
+                else
+                  return { fg = "#ff5555" } -- Red for error/stopped
+                end
+              end,
+            },
             Snacks.profiler.status(),
             -- stylua: ignore
             {
@@ -87,27 +147,6 @@ return {
         },
         extensions = { "neo-tree", "lazy", "fzf" },
       }
-
-      -- do not add trouble symbols if aerial is enabled
-      -- And allow it to be overriden for some buffer types (see autocmds)
-      if vim.g.trouble_lualine and LazyVim.has("trouble.nvim") then
-        local trouble = require("trouble")
-        local symbols = trouble.statusline({
-          mode = "symbols",
-          groups = {},
-          title = false,
-          filter = { range = true },
-          format = "{kind_icon}{symbol.name:Normal}",
-          hl_group = "lualine_c_normal",
-        })
-        table.insert(opts.sections.lualine_c, {
-          symbols and symbols.get,
-          cond = function()
-            return vim.b.trouble_lualine ~= false and symbols.has()
-          end,
-        })
-      end
-
       return opts
     end,
   },
