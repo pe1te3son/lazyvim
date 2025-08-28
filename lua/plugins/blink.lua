@@ -12,7 +12,10 @@ return {
         documentation = { window = { border = "single" } },
       },
       sources = {
-        default = { "lsp", "path", "snippets", "buffer", "codeium", "avante" },
+        default = { "lsp", "path", "snippets", "buffer", "codeium", "codecompanion" },
+        per_filetype = {
+          codecompanion = { "codecompanion" },
+        },
         providers = {
           avante = {
             module = "blink-cmp-avante",
@@ -28,8 +31,11 @@ return {
             module = "codeium.blink",
             async = true,
             enabled = function()
-              -- print("Current filetype:", vim.bo.filetype)
+              print("Current filetype:", vim.bo.filetype)
               return vim.bo.filetype ~= "AvanteInput"
+                and vim.bo.filetype ~= "AvantePromptInput"
+                and vim.bo.filetype ~= "DressingInput"
+                and vim.bo.filetype ~= "copilot-chat"
             end,
           },
         },
