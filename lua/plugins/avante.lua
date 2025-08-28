@@ -18,6 +18,7 @@ return {
       providers = {
         copilot = {
           model = "claude-sonnet-4",
+          timeout = 30000,
         },
       },
       selector = {

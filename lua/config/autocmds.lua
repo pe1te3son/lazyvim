@@ -94,7 +94,7 @@ vim.api.nvim_create_autocmd("FocusLost", {
   end,
 })
 
-local autosave_seconds = 60
+local autosave_seconds = 120
 if autosave_timer ~= nil then
   autosave_timer:start(autosave_seconds * 1000, autosave_seconds * 1000, vim.schedule_wrap(autosave_buffers))
 end
