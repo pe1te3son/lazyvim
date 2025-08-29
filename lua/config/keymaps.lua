@@ -16,9 +16,15 @@ vim.keymap.del({ "n", "v" }, "<leader>sr") -- search and replace grup far plugin
 vim.keymap.del({ "n" }, "<leader><space>")
 vim.keymap.set("n", "q", "<nop>") -- delete macro recording key
 
+vim.cmd([[cab cc CodeCompanion]])
+vim.keymap.set({ "v", "n" }, "<leader>ap", [[:CodeCompanion<CR>]], { desc = " Prompt (Code Companion)" })
+
+vim.keymap.set({ "n" }, "<leader>aa", [[:CodeCompanionAction<CR>]], { desc = " Actions (Code Companion)" })
+
 vim.keymap.set("n", "<leader>at", "<Cmd>CodeCompanionChat Toggle<CR>", {
-  desc = "Code Companion Chat",
+  desc = " Chat (Code Companion)",
 })
+
 -- vim.keymap.set("n", "J", "mzJ`z")
 -- vim.keymap.set("n", "<C-d>", "<C-d>zz")
 -- vim.keymap.set("n", "<C-u>", "<C-u>zz")
@@ -66,23 +72,6 @@ vim.keymap.set("n", "<C-p>", function(ctx)
   require("trouble").prev({ skip_groups = true, jump = true }, ctx)
 end, { noremap = true })
 
--- local hop = require("hop")
--- local directions = require("hop.hint").HintDirection
--- vim.keymap.set("", "<leader>h", function()
---   hop.hint_char1({
---     direction = directions.AFTER_CURSOR,
---     current_line_only = false,
---     case_insensitive = true,
---   })
--- end, { desc = "Hop After Cursor", remap = true })
--- vim.keymap.set("", "<leader>t", function()
---   hop.hint_char1({
---     direction = directions.BEFORE_CURSOR,
---     current_line_only = false,
---     case_insensitive = true,
---   })
--- end, { desc = "Hop Before Cursor", remap = true })
-
 -- Copilot
 vim.keymap.set("n", "<leader>am", ":CopilotChatModels<cr>", {
   desc = "Select Copilot Model",
@@ -120,12 +109,3 @@ vim.keymap.set("n", "<leader>gid", function()
     end,
   })
 end, { desc = "Git Diff" })
---
--- vim.keymap.set("n", "<leader>gia", function()
---   vim.cmd("diffput")
--- end)
---
--- -- vim.keymap.set("n", "<leader>gib", function()
--- --   vim.cmd("Git blame")
--- -- end)
---

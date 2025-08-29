@@ -25,7 +25,7 @@ return {
       -- { '<leader>at', function() require('opencode').toggle() end, desc = 'Toggle embedded opencode', },
       { '<leader>ad', function() require('opencode').ask() end, desc = 'Ask opencode', mode = 'n', },
       { '<leader>ad', function() require('opencode').ask('@selection: ') end, desc = 'Ask opencode about selection', mode = 'v', },
-      { '<leader>as', function() require('opencode').select_prompt() end, desc = 'Select prompt', mode = { 'n', 'v', }, },
+      { '<leader>as', function() require('opencode').select_prompt() end, desc = 'Select Prompt (Opencode)', mode = { 'n', 'v', }, },
       -- { '<leader>on', function() require('opencode').command('session_new') end, desc = 'New session', },
       -- { '<leader>oy', function() require('opencode').command('messages_copy') end, desc = 'Copy last message', },
       -- { '<S-C-u>',    function() require('opencode').command('messages_half_page_up') end, desc = 'Scroll messages up', },
