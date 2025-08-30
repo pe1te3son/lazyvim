@@ -1,15 +1,13 @@
--- CodeCompanion.nvim: AI-powered coding assistant for Neovim (chat & inline completion).
 return {
   "olimorris/codecompanion.nvim",
   dependencies = {
     "nvim-lua/plenary.nvim",
     "nvim-treesitter/nvim-treesitter",
     "ravitemer/mcphub.nvim",
-    "franco-ruggeri/codecompanion-spinner.nvim",
+    -- "franco-ruggeri/codecompanion-spinner.nvim",
   },
   opts = {
     extensions = {
-      spinner = {},
       mcphub = {
         callback = "mcphub.extensions.codecompanion",
         opts = {
@@ -28,8 +26,41 @@ return {
     },
     strategies = {
       chat = {
-        name = "copilot",
-        model = "gpt-5-mini",
+        adapter = {
+          name = "copilot",
+          model = "gpt-4.1",
+        },
+        tools = {
+          ["cmd_runner"] = {
+            opts = {
+              requires_approval = true,
+            },
+          },
+          opts = {
+            default_tools = {},
+            auto_submit_errors = true,
+            auto_submit_success = true,
+          },
+          groups = {
+            -- ["full_stack_dev_v2"] = {
+            --   description = "Full Stack Developer - Can run code, edit code and modify files",
+            --   tools = {
+            --     "cmd_runner",
+            --     "create_file",
+            --     "file_search",
+            --     "get_changed_files",
+            --     "grep_search",
+            --     "insert_edit_into_file",
+            --     "list_code_usages",
+            --     "read_file",
+            --     "search_web",
+            --   },
+            --   opts = {
+            --     collapse_tools = true,
+            --   },
+            -- },
+          },
+        },
       },
       inline = {
         adapter = "copilot",

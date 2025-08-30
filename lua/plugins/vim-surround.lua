@@ -10,5 +10,5 @@ return {
     { "yS", "<Plug>YSsurround", mode = { "n" }, desc = "Add Surrounding (Block)" },
     { ".", "<Plug>SurroundRepeat", mode = { "n" }, desc = "Repeat Last Surround" },
   },
-  dependencies = { "tpope/vim-repeat" },
+  dependencies = { "tpope/vim-repeat", "wellle/targets.vim" },
 }

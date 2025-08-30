@@ -18,6 +18,7 @@ return {
         },
         providers = {
           avante = {
+            enabled = false,
             module = "blink-cmp-avante",
             name = "Avante",
             opts = {
@@ -31,7 +32,7 @@ return {
             module = "codeium.blink",
             async = true,
             enabled = function()
-              print("Current filetype:", vim.bo.filetype)
+              -- print("Current filetype:", vim.bo.filetype)
               return vim.bo.filetype ~= "AvanteInput"
                 and vim.bo.filetype ~= "AvantePromptInput"
                 and vim.bo.filetype ~= "DressingInput"
