@@ -4,6 +4,7 @@ return {
     dependencies = {
       "Exafunction/codeium.nvim",
       "saghen/blink.compat",
+      "fang2hou/blink-copilot",
     },
     opts = {
       completion = {
@@ -11,11 +12,17 @@ return {
         documentation = { window = { border = "single" } },
       },
       sources = {
-        default = { "lsp", "path", "snippets", "buffer", "codeium", "codecompanion" },
+        default = { "lsp", "path", "snippets", "buffer", "codeium", "codecompanion", "copilot" },
         per_filetype = {
           codecompanion = { "codecompanion" },
         },
         providers = {
+          copilot = {
+            name = "copilot",
+            module = "blink-copilot",
+            score_offset = 0,
+            async = true,
+          },
           codeium = {
             name = "Codeium",
             kind = "Codeium",
@@ -32,3 +39,20 @@ return {
     },
   },
 }
+-- {
+--   "saghen/blink.cmp",
+--   optional = true,
+--   dependencies = { "supermaven-nvim", "saghen/blink.compat" },
+--   opts = {
+--     sources = {
+--       compat = { "supermaven" },
+--       providers = {
+--         supermaven = {
+--           kind = "Supermaven",
+--           score_offset = 0,
+--           async = true,
+--         },
+--       },
+--     },
+--   },
+-- },

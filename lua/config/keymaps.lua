@@ -16,13 +16,13 @@ vim.keymap.del({ "n", "v" }, "<leader>sr") -- search and replace grup far plugin
 vim.keymap.del({ "n" }, "<leader><space>")
 vim.keymap.set("n", "q", "<nop>") -- delete macro recording key
 
-vim.cmd([[cab cc CodeCompanion]])
-vim.keymap.set({ "v", "n" }, "<leader>ap", [[:CodeCompanion<CR>]], { desc = " Prompt (Code Companion)" })
+-- vim.cmd([[cab cc CodeCompanion]])
+vim.keymap.set({ "v", "n" }, "<leader>ap", [[:CodeCompanion<CR>]], { desc = "Prompt (Code Companion)" })
 
-vim.keymap.set({ "n" }, "<leader>aa", [[:CodeCompanionAction<CR>]], { desc = " Actions (Code Companion)" })
+vim.keymap.set({ "n" }, "<leader>aa", [[:CodeCompanionAction<CR>]], { desc = "Actions (Code Companion)" })
 
 vim.keymap.set("n", "<leader>at", "<Cmd>CodeCompanionChat Toggle<CR>", {
-  desc = " Chat (Code Companion)",
+  desc = "Chat (Code Companion)",
 })
 
 -- vim.keymap.set("n", "J", "mzJ`z")
@@ -71,11 +71,6 @@ end, { noremap = true })
 vim.keymap.set("n", "<C-p>", function(ctx)
   require("trouble").prev({ skip_groups = true, jump = true }, ctx)
 end, { noremap = true })
-
--- Copilot
-vim.keymap.set("n", "<leader>am", ":CopilotChatModels<cr>", {
-  desc = "Select Copilot Model",
-})
 
 vim.keymap.set("i", "<C-u>", function()
   require("copilot.suggestion").accept_word()

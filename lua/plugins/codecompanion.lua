@@ -7,6 +7,12 @@ return {
     -- "franco-ruggeri/codecompanion-spinner.nvim",
   },
   opts = {
+    prompt_library = require("codecompanion.prompt_library"),
+    display = {
+      chat = {
+        show_settings = false, -- Show LLM settings at the top of the chat buffer?
+      },
+    },
     extensions = {
       mcphub = {
         callback = "mcphub.extensions.codecompanion",
@@ -28,7 +34,7 @@ return {
       chat = {
         adapter = {
           name = "copilot",
-          model = "gpt-4.1",
+          model = "gpt-5-mini",
         },
         tools = {
           ["cmd_runner"] = {
@@ -41,25 +47,7 @@ return {
             auto_submit_errors = true,
             auto_submit_success = true,
           },
-          groups = {
-            -- ["full_stack_dev_v2"] = {
-            --   description = "Full Stack Developer - Can run code, edit code and modify files",
-            --   tools = {
-            --     "cmd_runner",
-            --     "create_file",
-            --     "file_search",
-            --     "get_changed_files",
-            --     "grep_search",
-            --     "insert_edit_into_file",
-            --     "list_code_usages",
-            --     "read_file",
-            --     "search_web",
-            --   },
-            --   opts = {
-            --     collapse_tools = true,
-            --   },
-            -- },
-          },
+          groups = {},
         },
       },
       inline = {
