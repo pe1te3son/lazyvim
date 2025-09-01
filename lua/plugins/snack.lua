@@ -30,6 +30,7 @@ return {
       { "<leader>sp", LazyVim.pick("grep_word"), desc = "Visual selection or word (Root Dir)", mode = { "v" } },
       { "<leader>sl", function() Snacks.picker.resume() end, desc = "Resume", mode = { "n", "x"}},
       { "<leader>sL", function() Snacks.picker.loclist() end, desc = "Location List" },
+      { "<leader>sq", function() Snacks.picker.qflist() end, desc = "Quickfix List" },
     }
   },
 }

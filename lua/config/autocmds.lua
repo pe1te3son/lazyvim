@@ -13,27 +13,6 @@ vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "CursorHoldI", "FocusGai
   pattern = { "*" },
 })
 
-vim.api.nvim_create_autocmd({ "BufEnter" }, {
-  pattern = "copilot-*",
-  callback = function(args)
-    -- Set display options immediately
-    vim.opt_local.relativenumber = false
-    vim.opt_local.number = false
-    vim.opt_local.conceallevel = 0
-
-    -- Use a more aggressive approach for modifiable/readonly
-    vim.defer_fn(function()
-      local buf = args.buf
-      if vim.api.nvim_buf_is_valid(buf) then
-        pcall(function()
-          vim.api.nvim_set_option_value("modifiable", true, { buf = buf })
-          vim.api.nvim_set_option_value("readonly", false, { buf = buf })
-        end)
-      end
-    end, 10) -- Small delay to let CopilotChat initialize
-  end,
-})
-
 -- Clear yanky history on exit
 vim.api.nvim_create_autocmd("VimLeavePre", {
   callback = function()

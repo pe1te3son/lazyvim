@@ -15,14 +15,24 @@ vim.keymap.del({ "n" }, "<leader>sg")
 vim.keymap.del({ "n", "v" }, "<leader>sr") -- search and replace grup far plugin
 vim.keymap.del({ "n" }, "<leader><space>")
 vim.keymap.set("n", "q", "<nop>") -- delete macro recording key
+vim.keymap.set("n", "Q", "<nop>")
+
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
+vim.keymap.set("n", "<leader>Y", [["+Y]])
+
+vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
+
+-- Window navigation
+vim.keymap.set("n", "<C-h>", "<C-w>w", { desc = "Cycle to next window" })
+vim.keymap.set("n", "<C-l>", "<C-w>W", { desc = "Cycle to previous window" })
 
 -- vim.cmd([[cab cc CodeCompanion]])
-vim.keymap.set({ "v", "n" }, "<leader>ap", [[:CodeCompanion<CR>]], { desc = "Prompt (Code Companion)" })
+vim.keymap.set({ "v", "n" }, "<leader>ap", [[:CodeCompanion<CR>]], { desc = " Prompt (Code Companion)" })
 
-vim.keymap.set({ "n" }, "<leader>aa", [[:CodeCompanionAction<CR>]], { desc = "Actions (Code Companion)" })
+vim.keymap.set({ "n" }, "<leader>aa", [[:CodeCompanionAction<CR>]], { desc = " Actions (Code Companion)" })
 
 vim.keymap.set("n", "<leader>at", "<Cmd>CodeCompanionChat Toggle<CR>", {
-  desc = "Chat (Code Companion)",
+  desc = " Chat (Code Companion)",
 })
 
 -- vim.keymap.set("n", "J", "mzJ`z")
