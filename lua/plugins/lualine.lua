@@ -1,17 +1,27 @@
-local current_git_dir = ""
+local git_cache = {}
 local function get_git_folder()
-  if current_git_dir ~= "" then
-    return current_git_dir
+  local cwd = vim.fn.getcwd()
+
+  if git_cache[cwd] then
+    return git_cache[cwd]
   end
 
-  local dir = vim.fn.system("basename $(git rev-parse --show-toplevel)"):sub(1, -2)
+  local git_root = vim.fs.find(".git", {
+    path = cwd,
+    upward = true,
+    type = "directory",
+  })[1]
 
-  -- not in git repo
-  if dir:sub(1, 5) == "fatal" then
-    return current_git_dir
+  if not git_root then
+    git_cache[cwd] = ""
+    return ""
   end
-  current_git_dir = " " .. dir
-  return current_git_dir
+
+  local project_dir = vim.fs.dirname(git_root)
+  local project_name = vim.fs.basename(project_dir)
+
+  git_cache[cwd] = "󱉭 " .. project_name
+  return git_cache[cwd]
 end
 
 return {
@@ -37,7 +47,6 @@ return {
           lualine_b = { "branch" },
 
           lualine_c = {
-            LazyVim.lualine.root_dir(),
             {
               "diagnostics",
               symbols = {
@@ -51,6 +60,7 @@ return {
               get_git_folder,
               color = { fg = "#9ece6a" },
             },
+            -- LazyVim.lualine.root_dir(),
             { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
             { LazyVim.lualine.pretty_path({ modified_sign = " + " }) },
           },
