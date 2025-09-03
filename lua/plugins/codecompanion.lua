@@ -1,9 +1,11 @@
 return {
   "olimorris/codecompanion.nvim",
+  event = "VeryLazy",
   dependencies = {
     "nvim-lua/plenary.nvim",
     "nvim-treesitter/nvim-treesitter",
     "ravitemer/mcphub.nvim",
+    "ravitemer/codecompanion-history.nvim",
     -- "franco-ruggeri/codecompanion-spinner.nvim",
   },
   opts = {
@@ -29,6 +31,8 @@ return {
           make_slash_commands = true, -- Add MCP prompts as /slash commands
         },
       },
+      -- History extension: persist chats across Neovim restarts
+      history = require("codecompanion.history"),
     },
     strategies = {
       chat = {
