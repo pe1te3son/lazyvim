@@ -13,7 +13,7 @@ vim.keymap.del({ "n", "v" }, "<leader>sw")
 vim.keymap.del({ "n" }, "<leader>e")
 vim.keymap.del({ "n" }, "<leader>sg")
 vim.keymap.del({ "n", "v" }, "<leader>sr") -- search and replace grup far plugin
-vim.keymap.del({ "n" }, "<leader><space>")
+-- vim.keymap.del({ "n" }, "<leader><space>")
 vim.keymap.set("n", "q", "<nop>") -- delete macro recording key
 vim.keymap.set("n", "Q", "<nop>")
 
@@ -44,7 +44,7 @@ vim.keymap.set("n", "G", "Gzz")
 
 vim.keymap.set("n", "<leader>qr", "q", { desc = "Start recording macro" })
 
-vim.keymap.set({ "n" }, "<leader><space>", function()
+vim.keymap.set({ "n" }, "<leader>ff", function()
   require("fzf-lua").keymaps()
 end, { desc = "FzfLua keymaps" })
 
