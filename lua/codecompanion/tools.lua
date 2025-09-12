@@ -12,8 +12,8 @@ return {
   groups = {
     ["guru"] = {
       tools = {
-        "vectorcode_ls",
-        "vectorcode_query",
+        -- "vectorcode_ls",
+        -- "vectorcode_query",
         "cmd_runner",
         "file_search",
         "get_changed_files",
