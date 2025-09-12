@@ -6,9 +6,34 @@ return {
     "nvim-treesitter/nvim-treesitter",
     "ravitemer/mcphub.nvim",
     "ravitemer/codecompanion-history.nvim",
-    -- "franco-ruggeri/codecompanion-spinner.nvim",
+    {
+      "pe1te3son/nvim-cc-spinner",
+      config = function()
+        require("nvim-cc-spinner").setup()
+      end,
+    },
   },
   opts = {
+    adapters = {
+      copilot = function()
+        return require("codecompanion.adapters").extend("copilot", {
+          schema = {
+            model = {
+              default = "claude-sonnet-4",
+            },
+          },
+        })
+      end,
+      http = {
+        claude_code = function()
+          return require("codecompanion.adapters").extend("claude_code", {
+            env = {
+              CLAUDE_CODE_OAUTH_TOKEN = vim.env.CLAUDE_CODE_OAUTH_TOKEN,
+            },
+          })
+        end,
+      },
+    },
     prompt_library = require("codecompanion.prompt_library"),
     display = {
       chat = {
@@ -16,6 +41,21 @@ return {
       },
     },
     extensions = {
+      vectorcode = {
+        opts = {
+          tool_group = {
+            -- this will register a tool group called `@vectorcode_toolbox` that contains all 3 tools
+            enabled = true,
+            -- a list of extra tools that you want to include in `@vectorcode_toolbox`.
+            -- if you use @vectorcode_vectorise, it'll be very handy to include
+            -- `file_search` here.
+            extras = {
+              "file_search",
+            },
+            collapse = false, -- whether the individual tools should be shown in the chat
+          },
+        },
+      },
       mcphub = {
         callback = "mcphub.extensions.codecompanion",
         opts = {
@@ -36,25 +76,16 @@ return {
     },
     strategies = {
       chat = {
-        adapter = {
-          name = "copilot",
-          model = "gpt-5-mini",
-        },
-        tools = {
-          ["cmd_runner"] = {
-            opts = {
-              requires_approval = true,
-            },
-          },
-          opts = {
-            default_tools = {},
-            auto_submit_errors = true,
-            auto_submit_success = true,
-          },
-          groups = {},
-        },
+        -- adapter = "claude_code",
+        adapter = "copilot",
+        -- adapter = {
+        --   name = "copilot",
+        --   model = "gpt-5-mini",
+        -- },
+        tools = require("codecompanion.tools"),
       },
       inline = {
+        -- adapter = "claude_code",
         adapter = "copilot",
       },
     },
