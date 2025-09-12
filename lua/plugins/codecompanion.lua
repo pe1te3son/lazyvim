@@ -76,6 +76,13 @@ return {
     },
     strategies = {
       chat = {
+        roles = {
+          llm = function(adapter)
+            -- print(vim.inspect(adapter))
+            return "CodeCompanion (" .. adapter.formatted_name .. " - " .. adapter.model.name .. ")"
+          end,
+          user = "Me",
+        },
         -- adapter = "claude_code",
         adapter = "copilot",
         -- adapter = {
