@@ -8,6 +8,9 @@ return {
       "giuxtaposition/blink-cmp-copilot",
     },
     opts = {
+      cmdline = {
+        enabled = false,
+      },
       completion = {
         documentation = { window = { border = "single" } },
       },
