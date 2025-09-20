@@ -86,14 +86,6 @@ vim.keymap.set("i", "<C-u>", function()
   require("copilot.suggestion").accept_word()
 end, { remap = false, desc = "Accept Copilot suggestion (Word)" })
 
-vim.keymap.set("i", "<C-l>", function()
-  require("copilot.suggestion").next()
-end, { remap = false, desc = "Next Copilot suggestion" })
-
-vim.keymap.set("i", "<C-L>", function()
-  require("copilot.suggestion").prev()
-end, { remap = false, desc = "Prev Copilot suggestion" })
-
 -- fugitive keymaps
 -- vim.keymap.set("n", "<leader>gii", function()
 --   vim.cmd("vertical rightbelow Git")

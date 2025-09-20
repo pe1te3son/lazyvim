@@ -4,7 +4,7 @@ return {
     dependencies = {
       -- "Exafunction/codeium.nvim",
       "saghen/blink.compat",
-      "supermaven-nvim",
+      -- "supermaven-nvim",
       "giuxtaposition/blink-cmp-copilot",
     },
     opts = {
@@ -19,7 +19,7 @@ return {
         per_filetype = {
           codecompanion = { "codecompanion" },
         },
-        compat = { "supermaven" },
+        -- compat = { "supermaven" },
         providers = {
           copilot = {
             name = "copilot",
@@ -28,11 +28,11 @@ return {
             score_offset = 0,
             async = true,
           },
-          supermaven = {
-            kind = "Supermaven",
-            score_offset = 0,
-            async = true,
-          },
+          -- supermaven = {
+          --   kind = "Supermaven",
+          --   score_offset = 0,
+          --   async = true,
+          -- },
           -- codeium = {
           --   name = "Codeium",
           --   kind = "Codeium",
