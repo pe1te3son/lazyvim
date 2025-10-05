@@ -2,7 +2,12 @@ return {
   {
     "zbirenbaum/copilot.lua",
     dependencies = {
-      "copilotlsp-nvim/copilot-lsp",
+      {
+        "copilotlsp-nvim/copilot-lsp",
+        init = function()
+          vim.g.copilot_nes_debounce = 2000
+        end,
+      },
     },
     enabled = true,
     cmd = "Copilot",

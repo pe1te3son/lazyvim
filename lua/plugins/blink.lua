@@ -5,7 +5,7 @@ return {
       -- "Exafunction/codeium.nvim",
       "saghen/blink.compat",
       -- "supermaven-nvim",
-      "giuxtaposition/blink-cmp-copilot",
+      "fang2hou/blink-copilot",
     },
     opts = {
       cmdline = {
@@ -23,7 +23,7 @@ return {
         providers = {
           copilot = {
             name = "copilot",
-            module = "blink-cmp-copilot",
+            module = "blink-copilot",
             kind = "Copilot",
             score_offset = 0,
             async = true,
