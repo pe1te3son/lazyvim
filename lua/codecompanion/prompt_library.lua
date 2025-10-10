@@ -3,9 +3,9 @@ return {
     strategy = "chat",
     description = "Get some special advice from an LLM",
     opts = {
-      mapping = "<LocalLeader>ce",
+      mapping = "<leader>ce",
       modes = { "v" },
-      short_name = "expert",
+      short_name = "ask",
       auto_submit = true,
       stop_context_insertion = true,
       user_prompt = true,

@@ -27,9 +27,10 @@ vim.keymap.set("n", "<C-h>", "<C-w>w", { desc = "Cycle to next window" })
 vim.keymap.set("n", "<C-l>", "<C-w>W", { desc = "Cycle to previous window" })
 
 -- vim.cmd([[cab cc CodeCompanion]])
-vim.keymap.set({ "v", "n" }, "<leader>ap", [[:CodeCompanion<CR>]], { desc = " Prompt (Code Companion)" })
+vim.keymap.set({ "v", "n" }, "<leader>ae", [[:CodeCompanion<CR>]], { desc = " Inline edit (Code Companion)" })
 
-vim.keymap.set({ "n" }, "<leader>aa", [[:CodeCompanionAction<CR>]], { desc = " Actions (Code Companion)" })
+-- vim.keymap.set({ "n" }, "<leader>aa", [[:CodeCompanionAction<CR>]], { desc = " Actions (Code Companion)" })
+vim.keymap.set({ "v", "n" }, "<leader>aa", [[:CodeCompanion /ask<CR>]], { desc = " Ask about... (Code Companion)" })
 
 vim.keymap.set("n", "<leader>at", "<Cmd>CodeCompanionChat Toggle<CR>", {
   desc = " Chat (Code Companion)",
