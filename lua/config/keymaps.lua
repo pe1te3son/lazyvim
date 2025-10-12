@@ -83,9 +83,12 @@ vim.keymap.set("n", "<C-p>", function(ctx)
   require("trouble").prev({ skip_groups = true, jump = true }, ctx)
 end, { noremap = true })
 
-vim.keymap.set("i", "<C-u>", function()
-  require("copilot.suggestion").accept_word()
-end, { remap = false, desc = "Accept Copilot suggestion (Word)" })
+-- Clear copilot suggestion with Esc if visible, otherwise preserve default Esc behavior
+vim.keymap.set("n", "<esc>", function()
+  if not require("copilot-lsp.nes").clear() then
+    return "<esc>"
+  end
+end, { desc = "Clear Copilot suggestion or fallback" })
 
 -- fugitive keymaps
 -- vim.keymap.set("n", "<leader>gii", function()
