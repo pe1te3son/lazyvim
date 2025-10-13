@@ -1,6 +1,10 @@
 return {
+  -- {
+  --   "akinsho/bufferline.nvim",
+  --   enabled = true,
+  -- },
   {
-    "akinsho/bufferline.nvim",
+    "NickvanDyke/opencode.nvim",
     enabled = false,
   },
 }
