@@ -3,7 +3,7 @@ return {
     "saghen/blink.cmp",
     dependencies = {
       -- "Exafunction/codeium.nvim",
-      "saghen/blink.compat",
+      -- "saghen/blink.compat",
       -- "supermaven-nvim",
       "fang2hou/blink-copilot",
     },
