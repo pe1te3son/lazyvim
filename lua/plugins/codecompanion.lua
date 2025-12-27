@@ -15,16 +15,6 @@ return {
   },
   opts = {
     adapters = {
-      copilot = function()
-        return require("codecompanion.adapters").extend("copilot", {
-          schema = {
-            model = {
-              default = "claude-sonnet-4.5",
-              -- default = "gpt-4.1",
-            },
-          },
-        })
-      end,
       http = {
         claude_code = function()
           return require("codecompanion.adapters").extend("claude_code", {
@@ -75,7 +65,7 @@ return {
       -- History extension: persist chats across Neovim restarts
       history = require("codecompanion.history"),
     },
-    strategies = {
+    interactions = {
       chat = {
         roles = {
           llm = function(adapter)
@@ -84,17 +74,17 @@ return {
           end,
           user = "Me",
         },
-        -- adapter = "claude_code",
-        adapter = "copilot",
-        -- adapter = {
-        --   name = "copilot",
-        --   model = "gpt-5-mini",
-        -- },
+        adapter = {
+          name = "copilot",
+          model = "claude-sonnet-4.5",
+        },
         tools = require("codecompanion.tools"),
       },
       inline = {
-        -- adapter = "claude_code",
-        adapter = "copilot",
+        adapter = {
+          name = "copilot",
+          model = "claude-sonnet-4.5",
+        },
       },
     },
     -- NOTE: The log_level is in `opts.opts`

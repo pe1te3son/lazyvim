@@ -1,11 +1,10 @@
 return {
   ["Code Expert"] = {
-    strategy = "chat",
+    interaction = "chat",
     description = "Get some special advice from an LLM",
     opts = {
-      mapping = "<leader>ce",
       modes = { "v" },
-      short_name = "ask",
+      alias = "ask",
       auto_submit = true,
       stop_context_insertion = true,
       user_prompt = true,
